@@ -80,22 +80,7 @@ Experiment 3A
 ````
 
 ### OUPUT  
-Experiment 3A
 
-Experiment 3B
-## PROGRAM (Python)
-```
-
-
- 
-
-
-
- 
-````
-
-### OUPUT  
-Experiment 3B
 
 # FIGURE -04 ADD TITILE HERE 
 
