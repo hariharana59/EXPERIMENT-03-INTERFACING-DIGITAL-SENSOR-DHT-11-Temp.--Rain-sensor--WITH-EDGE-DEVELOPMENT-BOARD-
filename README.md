@@ -109,7 +109,8 @@ time.sleep(10)
 
 
 # FIGURE -04: OUTPUT:
-<img width="648" height="744" alt="WhatsApp Image 2026-05-19 at 2 02 29 PM" src="https://github.com/user-attachments/assets/75897b89-fa64-4ed1-b9c9-4ad39ac31c30" />
+<img width="507" height="695" alt="image" src="https://github.com/user-attachments/assets/df61b804-a2a4-43ea-9b42-7ca510023cbc" />
+
 
 
 #  FIGURE -05 : CLOUD OUTPUT:
