@@ -109,12 +109,13 @@ time.sleep(10)
 
 
 # FIGURE -04: OUTPUT:
-<img width="507" height="695" alt="image" src="https://github.com/user-attachments/assets/df61b804-a2a4-43ea-9b42-7ca510023cbc" />
+<img width="598" height="421" alt="Screenshot 2026-05-12 142223" src="https://github.com/user-attachments/assets/ea701525-a5c9-45a9-b3a0-5b1769cfbe73" />
+
 
 
 
 #  FIGURE -05 : CLOUD OUTPUT:
-<img width="1600" height="828" alt="WhatsApp Image 2026-05-19 at 2 02 46 PM" src="https://github.com/user-attachments/assets/60353406-359d-4ceb-8847-891de12bc7de" />
+<img width="1920" height="1080" alt="Screenshot 2026-05-12 142424" src="https://github.com/user-attachments/assets/0335ece7-2b57-46af-a05d-209fb9892641" />
 
 
 # FIGURE -06 CIRCUIT:
