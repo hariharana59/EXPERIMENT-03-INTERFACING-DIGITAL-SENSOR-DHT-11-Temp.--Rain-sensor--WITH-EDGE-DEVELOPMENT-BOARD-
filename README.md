@@ -2,10 +2,10 @@
 
 ---
 
-### **NAME:**  
-### **DEPARTMENT:**  
-### **ROLL NO:**  
-### **DATE OF EXPERIMENT:**  
+### **NAME:HARIHARAN A**  
+### **DEPARTMENT:CSE-IOT**  
+### **ROLL NO:212223110013**  
+### **DATE OF EXPERIMENT:19.05.2026**  
 
 ---
 
@@ -70,29 +70,160 @@ Connect the Rain Sensor (LM393) D0 to any one GPIO.
 Experiment 3A
 ## PROGRAM (Python)
 ```
+import Adafruit_DHT
+import paho.mqtt.client as mqtt
+import ssl
+import time
 
+DHT_SENSOR = Adafruit_DHT.DHT11
+DHT_PIN = 18 # GPI04
+HiveMQ Cloud Credentials
+MQTT_BROKER = "39642c2516484165aca71f1701831c31.s1.eu.hivemq.cloud"
+MQTT_PORT = 8883
+MQTT_USER = "hivemq. webclient . 1778574692951"
+MQTT_PASSWORD = "s4>?q:SPh2DZFxr63C.j"
+TEMP_TOPIC = "raspberrypi/dht/temperature"
+HUM_TOPIC = "raspberrypi/dht/humidity"
+client = mqtt.Client()
+client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
+client.tls_set(tls_version=ssl.PROTOCOL_TLS)
+client.connect (MQTT_BROKER, MQTT_PORT)
+print("Connected to HiveMQ Cloud")
+print("Reading DHT11 Sensor ... \n")
+while True:
+humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
+if humidity is not None and temperature is not None:
+print(f"Temperature = {temperature} C")
+print(f"Humidity = {humidity} %")
+print("-
+# Publish to HiveMQ
+client.publish(TEMP_TOPIC, temperature)
+client.publish(HUM_TOPIC, humidity)
+print("Data sent to HiveMQ\n")
 
- 
-
-
-
- 
+print("Sensor failure. Check wiring.")
+time.sleep(10) 
 ````
 
-### OUPUT  
+### OUTPUT :
 
 
-# FIGURE -04 ADD TITILE HERE 
+# FIGURE -04: OUTPUT:
+<img width="648" height="744" alt="WhatsApp Image 2026-05-19 at 2 02 29 PM" src="https://github.com/user-attachments/assets/75897b89-fa64-4ed1-b9c9-4ad39ac31c30" />
 
-#  FIGURE -05 ADD TITILE HERE 
 
-# FIGURE -06 ADD TITLE HERE 
+#  FIGURE -05 : CLOUD OUTPUT:
+<img width="1600" height="828" alt="WhatsApp Image 2026-05-19 at 2 02 46 PM" src="https://github.com/user-attachments/assets/60353406-359d-4ceb-8847-891de12bc7de" />
+
+
+# FIGURE -06 CIRCUIT:
+<img width="720" height="1280" alt="WhatsApp Image 2026-05-12 at 2 32 36 PM" src="https://github.com/user-attachments/assets/65148248-8dc3-4d51-aac4-549134c0742b" />
 
 Experiment 3B
 ## PROGRAM (Python)
 ```
 
+import time
+import ssl
+import json
+import RPi.GPIO as GPIO
+import paho.mqtt.client as mqtt
 
+# =====================================================
+# GPIO SETUP
+# =====================================================
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+RAIN_SENSOR_PIN = 2
+
+GPIO.setup(RAIN_SENSOR_PIN, GPIO.IN)
+
+# =====================================================
+# MQTT SETUP
+# =====================================================
+
+MQTT_BROKER = "672ef4d3da52477689145e749c2eba1b.s1.eu.hivemq.cloud"
+MQTT_PORT = 8883
+
+MQTT_USER = "hivemq.webclient.1779178693708"
+MQTT_PASSWORD = "Atb,H9T.DK*1oa#q0xM2"
+
+MQTT_TOPIC = "raspberrypi/rain"
+
+client = mqtt.Client()
+
+client.username_pw_set(
+    MQTT_USER,
+    MQTT_PASSWORD
+)
+
+client.tls_set(
+    tls_version=ssl.PROTOCOL_TLS
+)
+
+# =====================================================
+# CONNECT TO HIVEMQ
+# =====================================================
+
+print("Connecting to HiveMQ Cloud...")
+
+client.connect(
+    MQTT_BROKER,
+    MQTT_PORT
+)
+
+client.loop_start()
+
+print("Connected Successfully")
+
+# =====================================================
+# MAIN LOOP
+# =====================================================
+
+try:
+
+    while True:
+
+        rain_value = GPIO.input(RAIN_SENSOR_PIN)
+
+        # ACTIVE LOW SENSOR
+        if rain_value == 0:
+
+            status = "RAIN DETECTED"
+            rain_status = 1
+
+        else:
+
+            status = "NO RAIN"
+            rain_status = 0
+
+        print(status)
+
+        payload = {
+            "rain_status": rain_status,
+            "message": status
+        }
+
+        client.publish(
+            MQTT_TOPIC,
+            json.dumps(payload)
+        )
+
+        print("Data Published")
+        print(payload)
+
+        time.sleep(5)
+
+except KeyboardInterrupt:
+
+    print("Program Stopped")
+
+    GPIO.cleanup()
+
+    client.loop_stop()
+    client.disconnect()
  
 
 
@@ -100,14 +231,18 @@ Experiment 3B
  
 ````
 
-### OUPUT  
+### OUTPUT  
 
-# FIGURE -07 ADD TITILE HERE 
+# FIGURE -07 OUTPUT:
+<img width="1730" height="973" alt="172 17 159 32 (WayVNC) - RealVNC Viewer 19-05-2026 13_51_13" src="https://github.com/user-attachments/assets/ab649c24-d43e-46f5-b6a7-3285ea44c807" />
 
-#  FIGURE -08 ADD TITILE HERE 
 
-# FIGURE -09 ADD TITLE HERE 
+#  FIGURE -08 CLOUD OUTPUT:
+<img width="1920" height="1020" alt="HiveMQ - Google Chrome 19-05-2026 13_50_10" src="https://github.com/user-attachments/assets/47bd0f3d-36f2-4aba-a9ad-3342c45e047e" />
 
+# FIGURE -09-CIRCUIT:
+
+<img width="720" height="1280" alt="WhatsApp Image 2026-05-19 at 1 54 52 PM" src="https://github.com/user-attachments/assets/ee215ab8-7530-478a-92a6-43c3d47bc943" />
 
 
 
